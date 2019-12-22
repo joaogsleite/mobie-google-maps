@@ -1,0 +1,14 @@
+{
+  "name": "mobie-google-maps",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "serve": "serve public/"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "serve": "^11.2.0"
+  }
+}
