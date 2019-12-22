@@ -1,6 +1,20 @@
-const inputarea = document.getElementsByTagName('textarea')[0];
-const button = document.getElementsByTagName('button')[0];
-const outputarea = document.getElementsByTagName('textarea')[1]
+
+document.getElementsByTagName('button')[0].onclick = function () {
+  generateCSV(document.getElementsByTagName('textarea')[0].value)
+}
+
+function download(filename, text) {
+  var element = document.createElement('a');
+  element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+  element.setAttribute('download', filename);
+
+  element.style.display = 'none';
+  document.body.appendChild(element);
+
+  element.click();
+
+  document.body.removeChild(element);
+}
 
 function getCategory(point){
   operator = point.operator.toLowerCase()
@@ -17,8 +31,7 @@ function getCategory(point){
   }
 }
 
-button.onclick = function () {
-  const jsonstring = inputarea.value
+function generateCSV(jsonstring) {
   const json = JSON.parse(jsonstring);
   const points = []
   json.data.forEach((point) => {
@@ -38,7 +51,7 @@ button.onclick = function () {
       points.push(pointToAdd)
     }
   })
-  const csv = 
+  const data = 
     Object.keys(points[0]).map((key)=>key).join(',') 
     + '\n' +
     points.map((point) =>
@@ -46,5 +59,6 @@ button.onclick = function () {
         point[key]
       ).join(',')
     ).join('\n')
-  outputarea.innerHTML = csv
+
+  download('map.csv', data)
 }
